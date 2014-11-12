@@ -1,0 +1,29 @@
+#!/usr/bin/make -f
+
+DEB_HOST_ARCH_OS ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_OS)
+BUILD_DOT_CONFIG := debian/config/$(DEB_HOST_ARCH_OS)
+
+### start dh overrides
+override_dh_auto_configure:
+	cp --remove-destination $(BUILD_DOT_CONFIG) hostapd/.config
+
+override_dh_auto_build:
+	dh_auto_build --sourcedirectory=hostapd --buildsystem=makefile
+
+override_dh_auto_install:
+	$(info Skip dh_auto_install ...)
+
+override_dh_auto_clean:
+	dh_auto_clean --sourcedirectory=hostapd --buildsystem=makefile
+
+override_dh_clean:
+	dh_clean hostapd/.config
+
+override_dh_installchangelogs:
+	dh_installchangelogs hostapd/ChangeLog
+
+### end dh overrides
+
+%:
+	dh $@
+

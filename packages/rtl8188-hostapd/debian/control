@@ -1,0 +1,12 @@
+Source: rtl8188-hostapd
+Maintainer: Tobias Schröpf <tobias@schroepf.de>
+Section: net
+Priority: optional
+Standards-Version: 3.9.2
+Build-Depends: debhelper (>= 9)
+
+Package: rtl8188-hostapd
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: A version of hostapd that supports some RealTek chips
+
